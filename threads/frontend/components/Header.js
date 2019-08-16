@@ -1,9 +1,15 @@
 import Nav from "./Nav";
+import Link from "next/link";
+import styled from "styled-components";
 const Header = () => {
   return (
     <div>
       <div className="bar">
-        <a href="">Threads</a>
+        <h1>
+          <Link href="/">
+            <a>Threads</a>
+          </Link>
+        </h1>
         <Nav />
       </div>
 
