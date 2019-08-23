@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Query } from "react-apollo";
 import gql from "graphql-tag";
-
+import styled from "styled-components";
 const ALL_ITEMS_QUERY = gql`
   query ALL_ITEMS_QUERY {
     items {
@@ -15,21 +15,38 @@ const ALL_ITEMS_QUERY = gql`
   }
 `;
 
+const Center = styled.div`
+  text-align: center;
+`;
+
+const ItemsList = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 60px;
+  max-width: ${props => props.theme.maxWidth};
+  margin: 0 auto;
+`;
+
 class Items extends Component {
   render() {
     return (
-      <div>
+      <Center>
         <p>Items</p>
         <Query query={ALL_ITEMS_QUERY}>
-          {payload => {
-            console.log(payload);
-            if (payload.error) {
-              return <p>Woops, Error!</p>;
-            }
-            return <p>This is inside the Query</p>;
+          {({ error, loading, data }) => {
+            if (loading) return <p>Loading...</p>;
+            if (error) return <p>Woops, Error: {error.message}!</p>;
+            return (
+              <ItemsList>
+                <p>There are currently {data.items.length} items in the DB.</p>
+                {data.items.map(item => (
+                  <p>{item.title}</p>
+                ))}
+              </ItemsList>
+            );
           }}
         </Query>
-      </div>
+      </Center>
     );
   }
 }

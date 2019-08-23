@@ -1,6 +1,6 @@
 import Items from "../components/Items";
 
-const Index = props => {
+const Home = props => {
   return (
     <div>
       <h1>Welcome to Threads.</h1>
@@ -9,4 +9,4 @@ const Index = props => {
   );
 };
 
-export default Index;
+export default Home;
